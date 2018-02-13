@@ -1,0 +1,35 @@
+alias pr=pr
+
+pr() {
+
+    FDR="${PWD##*/}"
+    PRFX=${FDR//[-]/}
+
+    case "$1" in
+        up )
+            docker-compose up -d
+            ;;
+        stop )
+            docker-compose stop
+            ;;
+        rebuild )
+            docker-compose build
+            ;;
+        composer )
+            docker exec -it ${PRFX}_php_1 composer $2 $3 $4 $5
+            ;;
+        artisan )
+            docker exec -it ${PRFX}_php_1 php artisan $2 $3 $4 $5 $6 $7 $8
+            ;;
+        phpunit )
+            docker exec -it ${PRFX}_php_1 vendor/bin/phpunit $2 $3 $4 $5 $6
+            ;;
+        *)
+            docker exec -it ${PRFX}_php_1 $1 $2 $3 $4 $5 $6 $7 $8
+            ;;
+  esac
+}
+
+export pr
+
+echo "Now you can use the 'pr' command (try typing 'pr composer')"

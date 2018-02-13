@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  php:
+    image: "kreator/homestead:latest"
+    depends_on:
+      - mysql
+    volumes:
+      - ./app:/opt/app
+      
+  worker:
+    image: "kreator/homestead:latest"
+    depends_on:
+      - mysql
+    volumes:
+      - ./app:/opt/app
+      - ./_docker/supervisor/conf.d/:/etc/supervisor/conf.d/
+
+  nginx:
+    image: "nginx:1.13"
+    depends_on:
+      - php
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/opt/app
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+
+  mysql:
+    image: "mysql:5.7"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+
+  redis:
+    image: "redis:4.0"
