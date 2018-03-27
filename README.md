@@ -6,11 +6,11 @@ Dockerized Laravel Homestead local development environment.
 
 * Install [docker]() and [docker-compose]().
 * Clone/download this repo.
-* Add `homestead.app` domain to hosts file pointing to 127.0.0.1
+* Add `homestead.test` domain to hosts file pointing to 127.0.0.1
 * Clone your Laravel app into `app` directory.
 * `docker-compose up -d`
 * `docker exec homesteaddocker_php_1 composer install` (or `pr composer install` when using aliases)
-* Open `homestead.app` in your browser.
+* Open `homestead.test` in your browser.
 
 ### Aliases
 
